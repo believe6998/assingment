@@ -20,27 +20,26 @@ void themSinhVien(thongTinSinhVien sinhVien[], int *p) {
     }
     printf("Nhập tên sinh viên: \n");
     fgetc(stdin);
-    scanf("%[^\n]",sinhVien[*p].tenSinhVien);
+    scanf("%[^\n]", sinhVien[*p].tenSinhVien);
     printf("Nhập số điện thoại: \n");
     fgetc(stdin);
     scanf("%[0-9]", sinhVien[*p].soDienThoai);
     *p += 1;
 }
 
-
-void hienThi(thongTinSinhVien sinhVien[]) {
+void hienThi(thongTinSinhVien sinhVien[], int *p) {
 
     printf("%-10s%-20s%-10s%-20s%-10s%-20s\n", "", "Mã sinh viên", "|", "Tên sinh viên", "|", "Điện thoại");
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < *p; ++i) {
         printf("%-10s%-18s%-10s%-18s%-10s%-18s\n", "", sinhVien[i].maSinhVien, "|", sinhVien[i].tenSinhVien, "|",
                sinhVien[i].soDienThoai);
     }
 }
 
-void luuDanhSach(thongTinSinhVien sinhVien[]) {
+void luuDanhSach(thongTinSinhVien sinhVien[], int *p) {
     FILE *f = fopen("danhsachsinhvien.txt", "w+");
     fprintf(f, "%-10s%-20s%-10s%-20s%-10s%-20s\r\n", "", "Mã sinh viên", "|", "Tên sinh viên", "|", "Điện thoại");
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < *p; i++) {
         fprintf(f, "%-10s%-18s%-10s%-18s%-10s%-18s\r\n", "", sinhVien[i].maSinhVien, "|", sinhVien[i].tenSinhVien, "|",
                 sinhVien[i].soDienThoai);
     }
@@ -56,7 +55,6 @@ void docDanhSach() {
     }
     fclose(f);
 }
-
 
 int main() {
     thongTinSinhVien sinhVien[10] = {};
@@ -83,10 +81,10 @@ int main() {
                 break;
             case 2:
                 printf("Danh sách sinh viên: \n");
-                hienThi(sinhVien);
+                hienThi(sinhVien, p);
                 break;
             case 3:
-                luuDanhSach(sinhVien);
+                luuDanhSach(sinhVien, p);
                 printf("Thông tin sinh viên được lưu vào file danhsachsinhvien.txt.\n\n");
                 break;
             case 4:
@@ -103,6 +101,5 @@ int main() {
         if (luachon == 5)
             break;
     }
-
     return 0;
 }
